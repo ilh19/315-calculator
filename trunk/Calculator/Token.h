@@ -8,9 +8,9 @@ class Token{
 public:
 	// character has an integer value
   	Token(int i);
-	getInPrior();
-	getStackPrior();
-	getId();
+	int getInPrior();
+	int getStackPrior();
+	int getId();
 
 private:
 	/*Priorities*/
@@ -21,37 +21,37 @@ private:
 	
 class TokenOpenParen:Token{
 public:
-  	TokenOpenParen(int i);
+  	TokenOpenParen(int i): inPrior(100), stackPrior(0);
 };
 
 class TokenCloseParen:Token{
 public:
-  	TokenCloseParen(int i);
+  	TokenCloseParen(int i):inPrior(0), stackPrior(99);
 };
 
 class TokenDigit:Token{
 public:
-  	TokenDigit(int i);
+  	TokenDigit(int i) : inPrior(0), stackPrior(0);
 };
 
 class TokenPlusMinus:Token{
 public:
-  	TokenPlusMinus(int i);
+  	TokenPlusMinus(int i) : inPrior(1), stackPrior(2);
 };
 
 class TokenDivMult:Token{
 public:
-  	TokenDivMult(int i);
+  	TokenDivMult(int i) : inPrior(3), stackPrior(4);
 };
 
 class TokenExp:Token{
 public:
-  	TokenExp(int i);
+  	TokenExp(int i) : inPrior(6), stackPrior(5);
 };
 
 class TokenEnd:Token{
 public:
-  	TokenEnd();
+  	TokenEnd() : inPrior(0), stackPrior(-1);
 };
 
 #endif;
