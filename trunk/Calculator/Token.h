@@ -3,54 +3,55 @@
 */
 #ifndef TOKEN_H
 #define TOKEN_H
+
 class Token{
 public:
-  	Token(char);
-  	Token(int);
-/*
-Token:          +   −   /   *   ^    (            )            operand       END
-input priority:	1   1   3   3   6    100          0                 0         0
-stack priority: 2   2   4	4    5   0           99                0 	     −1
-*/  
-	enum inPriors { factor = 6, mult = 3, div = 3, add = 1, sub=1,  oParen=100, cParen = 0, end = 0};
-	enum stackPriors {factor = 5, mult = 4, div = 4, add = 2, sub=2,  oParen=0, cParen = 99, end = -1};
+	// character has an integer value
+  	Token(int i);
+	getInPrior();
+	getStackPrior();
+	getId();
 
-
-};
-class TokenOpenParen{
-public:
-  	TokenOpenParen(char);
 private:
-  	char par;
+	/*Priorities*/
+	int inPrior;
+	int stackPrior;
+	int id;
 };
-
-class TokenCloseParen{
+	
+class TokenOpenParen:Token{
 public:
-  	TokenCloseParen(char);
-private:
-  	char par;
+  	TokenOpenParen(int i);
 };
 
-class TokenDigit{
+class TokenCloseParen:Token{
 public:
-  	TokenDigit(int);
-private:
-  	int digit;
+  	TokenCloseParen(int i);
 };
-class TokenOperator{
+
+class TokenDigit:Token{
 public:
-  	TokenOperator(char,int);
-private:
-  	int prior;
-  	char oper;
+  	TokenDigit(int i);
 };
-////////FIX
-class TokenEnd{
+
+class TokenPlusMinus:Token{
+public:
+  	TokenPlusMinus(int i);
+};
+
+class TokenDivMult:Token{
+public:
+  	TokenDivMult(int i);
+};
+
+class TokenExp:Token{
+public:
+  	TokenExp(int i);
+};
+
+class TokenEnd:Token{
 public:
   	TokenEnd();
-private:
-  	int prior;
-  	char oper;
 };
 
 #endif;
