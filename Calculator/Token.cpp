@@ -12,20 +12,25 @@ stack priority: 2   2   4	4    5   0           99                0 	     −1
 
 Token::Token (int i):id(i){}
 
-Token::getInPrior(){}
-
-Token::getStackPrior(){]
-	Token::getId(){}
-	
-	
-	
-	
-	
-	
-	
-	TokenParen::
-TokenParen(char c): par(c){
+int Token::getInPrior() {
+	return inPrior;
 }
+
+int Token::getStackPrior() {
+	return stackPrior;
+}
+
+int	Token::getId() {
+	return id;
+}
+
+
+	
+TokenParen::
+TokenParen(char c): par(c) {
+
+}
+
 TokenDigit::
 TokenDigit(int i): digit(i){
 }
