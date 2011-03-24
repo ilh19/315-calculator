@@ -60,6 +60,14 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="..\Lexer.h" />
+    <ClInclude Include="..\Parser.h" />
+    <ClInclude Include="..\Token.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\Lexer.cpp" />
+    <ClCompile Include="..\Parser.cpp" />
+    <ClCompile Include="..\Token.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
