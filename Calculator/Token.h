@@ -12,14 +12,14 @@ public:
 	int getStackPrior();
 	int getId();
 
-private:
+protected:
 	/*Priorities*/
 	int inPrior;
 	int stackPrior;
 	int id;
 };
 	
-class TokenOpenParen:Token{
+class TokenOpenParen: public Token{
 public:
   	TokenOpenParen(int i): inPrior(100), stackPrior(0);
 };
