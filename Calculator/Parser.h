@@ -10,14 +10,10 @@
 using namespace std;
 class Parser{
 public: 
-        /*Constructor*/
-        Parser(vector<Token*> _input);
-        /*Destructor*/
-        ~Parser();
-        //getToken(); don't think we need a get token
-        /*Member Functions*/
-        void infixToPostfix();
-        /*Accessors*/
+        Parser(vector<Token*> inputVect);
+       // ~Parser();
+        
+		void infixToPostfix();
         list<Token*> getPostFix() const;
         list<Token*> getOpStack() const;
         

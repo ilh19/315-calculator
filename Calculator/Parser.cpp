@@ -4,14 +4,12 @@
 
 #include "Parser.h"
 
-Parser::Parser(vector<Token*> _input): input(_input) {
-        TokenEnd end = TokenEnd(); ////fix
+Parser::Parser(vector<Token*> inputVect): input(inputVect) {
+		TokenEnd* end = new TokenEnd(); 
         opStack.push_back(end);
 }
 
-Parser::~Parser(){}
-
-/*Member Functions*/
+//Parser::~Parser(){}
 
 list<Token*> Parser::getPostFix() const{
         return postFix;
@@ -24,21 +22,23 @@ list<Token*> Parser::getOpStack() const{
 void Parser::infixToPostfix(){
         for (int i = 0; i < input.size(); i++){
                 Token* inp = input[i];
-                if (inp->getId()=='d'){ 
+				char id = inp->getId();
+                if (id =='d'){ 
                         postFix.push_back(inp);
                 }
-                if(inp->getId()=='#'){
+                if(id =='#'){
 					while (!opStack.empty() && ((opStack.back())->getId())!='#') {
 						postFix.push_back(opStack.back());
 						opStack.pop_back();
                        // pop everything up to the END token and enqueue
+						break; ///////???
 					}
 					//pop #?
                 }
-                if(inp is a TokenOpenParen){
+                if(id == '('){
                         opStack.push_back(inp);
                 }
-                if(inp is a TokenCloseParen){
+                if(id == ')'){
 					while (!opStack.empty() && ((opStack.back())->getId())!='(') {
 						postFix.push_back(opStack.back());
 						opStack.pop_back();
@@ -48,12 +48,12 @@ void Parser::infixToPostfix(){
 						opStack.pop_back();
 					}
                 }
-                *Token temp = opStack.front();
+                Token* temp = opStack.front();
                 if(inp->getInPrior() >= temp->getStackPrior()) {
-                        opStack.push(inp);
+                        opStack.push_back(inp);
                 }
                 else{
-                        postFix.enqueue(inp);
+                        postFix.push_back(inp);
                 
                 }
         }
