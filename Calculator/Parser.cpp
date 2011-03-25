@@ -26,13 +26,12 @@ void Parser::infixToPostfix(){
                 if (id =='d'){ 
                         postFix.push_back(inp);
                 }
-                if(id =='#'){
+                if(id =='#'){ // pop everything up to the END token and enqueue
 					while (!opStack.empty() && ((opStack.back())->getId())!='#') {
 						postFix.push_back(opStack.back());
 						opStack.pop_back();
-                       // pop everything up to the END token and enqueue
-						//break; ///////???
 					}
+					opStack.pop_back();
 					return;
 					//pop #?
                 }
