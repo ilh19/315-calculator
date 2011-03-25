@@ -1,4 +1,4 @@
-﻿<TOKEN.CPP>
+﻿//<TOKEN.CPP>
 #include "Token.h"
 
 	/*
@@ -12,32 +12,56 @@ stack priority: 2   2   4	4    5   0           99                0 	     −1
 
 Token::Token (int i):id(i){}
 
-int Token::getInPrior() {
+int Token::getInPrior() const {
 	return inPrior;
 }
 
-int Token::getStackPrior() {
+int Token::getStackPrior() const {
 	return stackPrior;
 }
 
-int	Token::getId() {
+int	Token::getId() const {
 	return id;
 }
 
-//test
 
 	
-TokenParen::
-TokenParen(char c): par(c) {
-
+TokenOpenParen::TokenOpenParen(int i) : Token(i) {
+	inPrior = 100;
+	stackPrior = 0;
 }
 
-TokenDigit::
-TokenDigit(int i): digit(i){
+TokenCloseParen::TokenCloseParen(int i) : Token(i) {
+	inPrior = 0;
+	stackPrior = 99;
 }
-TokenOperator::
-TokenOperator(char c, int priority): oper(c),prior(priority){
+
+TokenDigit::TokenDigit(int i): Token(i){
+	inPrior = 0;
+	stackPrior = 0;
 }
+
+TokenPlusMinus::TokenPlusMinus(int i) : Token(i) {
+	inPrior = 1;
+	stackPrior = 2;
+}
+
+TokenDivMult::TokenDivMult(int i) : Token(i) {
+	inPrior = 3;
+	stackPrior = 4;
+}
+
+TokenExp::TokenExp() : Token('^') {
+	inPrior = 6;
+	stackPrior = 5;
+}
+
+TokenEnd::TokenEnd() : Token('#') { 
+	inPrior = 0;
+	stackPrior = -1;
+}
+
+/*
 Token::
 Token(char c){
   	if(c == '(' || c == ')'){
@@ -64,3 +88,4 @@ Token::
 Token(int i){
   	//need to finish
 }
+*/

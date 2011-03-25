@@ -8,50 +8,58 @@ class Token{
 public:
 	// character has an integer value
   	Token(int i);
-	int getInPrior();
-	int getStackPrior();
-	int getId();
+    int getInPrior() const ;
+	int getStackPrior() const ;
+	virtual char getId() const = 0; // needs to be defined by derived classes
 
 protected:
 	/*Priorities*/
 	int inPrior;
 	int stackPrior;
-	int id;
 };
 	
-class TokenOpenParen: public Token{
+class TokenOpenParen : public Token{
 public:
-  	TokenOpenParen(int i): inPrior(100), stackPrior(0);
+  	TokenOpenParen();
+	char getId() const;
 };
 
-class TokenCloseParen:Token{
+class TokenCloseParen: public Token{
 public:
-  	TokenCloseParen(int i):inPrior(0), stackPrior(99);
+  	TokenCloseParen();
+	char getId() const;
 };
 
-class TokenDigit:Token{
+class TokenDigit: public Token{
 public:
-  	TokenDigit(int i) : inPrior(0), stackPrior(0);
+  	TokenDigit(int i);
+	char getId() const;
+	int getValue() const;
+
+private:
+	int value;
 };
 
-class TokenPlusMinus:Token{
+class TokenPlusMinus : public Token{
 public:
-  	TokenPlusMinus(int i) : inPrior(1), stackPrior(2);
+  	TokenPlusMinus();
+	char getId() const;
 };
 
-class TokenDivMult:Token{
+class TokenDivMult : public Token{
 public:
-  	TokenDivMult(int i) : inPrior(3), stackPrior(4);
+  	TokenDivMult();
+	char getId() const;
 };
 
-class TokenExp:Token{
+class TokenExp: public Token{
 public:
-  	TokenExp(int i) : inPrior(6), stackPrior(5);
+  	TokenExp();
 };
 
-class TokenEnd:Token{
+class TokenEnd: public Token{
 public:
-  	TokenEnd() : inPrior(0), stackPrior(-1);
+  	TokenEnd();
 };
 
 #endif;
