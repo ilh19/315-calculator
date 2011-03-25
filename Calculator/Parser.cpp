@@ -48,14 +48,23 @@ void Parser::infixToPostfix(){
 						opStack.pop_back();
 					}
                 }
-                Token* temp = opStack.front(); //not complete
-                if(inp->getInPrior() >= temp->getStackPrior()) {
+                Token* temp = opStack.back(); 
+				while (temp->getStackPrior() >= inp->getInPrior()) { //pop from stack into queue those operators with stack priority > input priority
+					postFix.push_back(temp);
+					opStack.pop_back();
+					if (!opStack.empty()) temp = opStack.back();
+					else break;
+				}
+				
+				opStack.push_back(inp); //push current operator into stack
+				
+               /* if(inp->getInPrior() >= temp->getStackPrior()) {
                         opStack.push_back(inp);
                 }
                 else{
                         postFix.push_back(inp);
                 
-                }
+                }*/
         }
 
 }
