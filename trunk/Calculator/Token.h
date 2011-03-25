@@ -8,7 +8,8 @@ class Token{
 public:
 	// character has an integer value
   	Token(int i);
-    int getInPrior() const ;
+    
+	int getInPrior() const ;
 	int getStackPrior() const ;
 	char getId() const; 
 	int getValue() const;
