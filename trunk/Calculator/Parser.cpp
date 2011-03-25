@@ -31,8 +31,9 @@ void Parser::infixToPostfix(){
 						postFix.push_back(opStack.back());
 						opStack.pop_back();
                        // pop everything up to the END token and enqueue
-						break; ///////???
+						//break; ///////???
 					}
+					return;
 					//pop #?
                 }
                 if(id == '('){
