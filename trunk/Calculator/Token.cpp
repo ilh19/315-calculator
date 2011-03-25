@@ -20,33 +20,36 @@ int Token::getStackPrior() const {
 	return stackPrior;
 }
 
-int	Token::getId() const {
+char Token::getId() const {
 	return id;
 }
 
-
+int Token::getValue() const {
+	return value;
+}
 	
-TokenOpenParen::TokenOpenParen(int i) : Token(i) {
+TokenOpenParen::TokenOpenParen() : Token('(') {
 	inPrior = 100;
 	stackPrior = 0;
 }
 
-TokenCloseParen::TokenCloseParen(int i) : Token(i) {
+TokenCloseParen::TokenCloseParen() : Token(')') {
 	inPrior = 0;
 	stackPrior = 99;
 }
 
-TokenDigit::TokenDigit(int i): Token(i){
+TokenDigit::TokenDigit(int i): Token('d'){
 	inPrior = 0;
 	stackPrior = 0;
+	value = i;
 }
 
-TokenPlusMinus::TokenPlusMinus(int i) : Token(i) {
+TokenPlusMinus::TokenPlusMinus(char c) : Token(c) {
 	inPrior = 1;
 	stackPrior = 2;
 }
 
-TokenDivMult::TokenDivMult(int i) : Token(i) {
+TokenDivMult::TokenDivMult(char c) : Token(c) {
 	inPrior = 3;
 	stackPrior = 4;
 }

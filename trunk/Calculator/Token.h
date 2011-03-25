@@ -10,46 +10,44 @@ public:
   	Token(int i);
     int getInPrior() const ;
 	int getStackPrior() const ;
-	virtual char getId() const = 0; // needs to be defined by derived classes
+	char getId() const; 
+	int getValue() const;
 
 protected:
 	/*Priorities*/
 	int inPrior;
 	int stackPrior;
+	char id;
+	int value;
 };
 	
 class TokenOpenParen : public Token{
 public:
   	TokenOpenParen();
-	char getId() const;
 };
 
 class TokenCloseParen: public Token{
 public:
   	TokenCloseParen();
-	char getId() const;
 };
 
 class TokenDigit: public Token{
 public:
   	TokenDigit(int i);
-	char getId() const;
-	int getValue() const;
+	//int getValue() const;
 
-private:
-	int value;
+//private:
+//	int value;
 };
 
 class TokenPlusMinus : public Token{
 public:
-  	TokenPlusMinus();
-	char getId() const;
+  	TokenPlusMinus(char c);
 };
 
 class TokenDivMult : public Token{
 public:
-  	TokenDivMult();
-	char getId() const;
+  	TokenDivMult(char c);
 };
 
 class TokenExp: public Token{
