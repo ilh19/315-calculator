@@ -48,7 +48,7 @@ void Parser::infixToPostfix(){
 						opStack.pop_back();
 					}
                 }
-                Token* temp = opStack.front();
+                Token* temp = opStack.front(); //not complete
                 if(inp->getInPrior() >= temp->getStackPrior()) {
                         opStack.push_back(inp);
                 }
