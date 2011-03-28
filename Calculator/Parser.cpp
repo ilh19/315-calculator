@@ -38,6 +38,7 @@ void Parser::infixToPostfix(){
 				char id = inp->getId();
                 if (id =='d'){ 
                         postFix.push_back(inp);
+						continue;
                 }
                 if(id =='#'){ // pop everything up to the END token and enqueue
 					while (!opStack.empty() && ((opStack.back())->getId())!='#') {
@@ -50,6 +51,7 @@ void Parser::infixToPostfix(){
                 }
                 if(id == '('){
                         opStack.push_back(inp);
+						continue;
                 }
                 if(id == ')'){
 					while (!opStack.empty() && ((opStack.back())->getId())!='(') {
@@ -60,17 +62,18 @@ void Parser::infixToPostfix(){
 					if (!opStack.empty() && ((opStack.back())->getId())=='(') {
 						opStack.pop_back();
 					}
+					continue;
                 }
-                Token* temp = opStack.back(); 
-				while (temp->getStackPrior() >= inp->getInPrior()) { //pop from stack into queue those operators with stack priority > input priority
-					postFix.push_back(temp);
-					opStack.pop_back();
-					if (!opStack.empty()) temp = opStack.back();
-					else break;
+				else{  // operator
+					Token* temp = opStack.back(); 
+					while (temp->getStackPrior() >= inp->getInPrior()) { //pop from stack into queue those operators with stack priority > input priority
+						postFix.push_back(temp);
+						opStack.pop_back();
+						if (!opStack.empty()) temp = opStack.back();
+						else break;
+					}
+					opStack.push_back(inp); //push current operator into stack
 				}
-				
-				opStack.push_back(inp); //push current operator into stack
-				
                /* if(inp->getInPrior() >= temp->getStackPrior()) {
                         opStack.push_back(inp);
                 }
@@ -78,7 +81,7 @@ void Parser::infixToPostfix(){
                         postFix.push_back(inp);
                 
                 }*/
-        }
+		}
 
 }
 
