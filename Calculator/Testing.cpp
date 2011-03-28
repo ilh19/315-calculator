@@ -19,10 +19,12 @@ int main(){
 	TokenExp* tokExp = new TokenExp();
 	TokenEnd* tokEnd = new TokenEnd();
 	
+	// 2+(4*6)^2-(11*(4/2)) = 556
 	vector<Token*> tokenVect = vector<Token*>();
 	tokenVect.push_back(tokDigit1);	
 	tokenVect.push_back(tokPlus);
 	tokenVect.push_back(tokOpen);
+	tokenVect.push_back(tokDigit2);
 	tokenVect.push_back(tokMult);
 	tokenVect.push_back(tokDigit3);
 	tokenVect.push_back(tokClose);
