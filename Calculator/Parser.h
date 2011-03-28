@@ -16,6 +16,7 @@ public:
 		void infixToPostfix();
         list<Token*> getPostFix() const;
         list<Token*> getOpStack() const;
+		void printfunc();
         
 private: 
         list<Token*> opStack;

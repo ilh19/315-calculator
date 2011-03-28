@@ -3,6 +3,7 @@
 */
 
 #include "Parser.h"
+#include <iostream>
 
 Parser::Parser(vector<Token*> inputVect): input(inputVect) {
 		TokenEnd* end = new TokenEnd(); 
@@ -17,6 +18,18 @@ list<Token*> Parser::getPostFix() const{
 
 list<Token*> Parser::getOpStack() const{
         return opStack;
+}
+
+void Parser::printfunc() {
+	list<Token*>::iterator p = postFix.begin();
+	for (; p!=postFix.end(); p++) {
+		if((*p)->getId() == 'd'){
+			cout << "Value: " << (*p)->getValue() << endl;
+		}
+		else {
+		cout<< (*p)->getId()<<endl;
+		}
+	}
 }
 
 void Parser::infixToPostfix(){
