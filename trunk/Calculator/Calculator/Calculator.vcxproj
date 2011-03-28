@@ -60,12 +60,10 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="..\Lexer.h" />
     <ClInclude Include="..\Parser.h" />
     <ClInclude Include="..\Token.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\Lexer.cpp" />
     <ClCompile Include="..\Parser.cpp" />
     <ClCompile Include="..\Testing.cpp" />
     <ClCompile Include="..\Token.cpp" />
