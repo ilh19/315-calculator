@@ -1,5 +1,6 @@
 #include "Token.h"
 #include "Parser.h"
+#include "RuntimeException.h"
 #include "Lexer.h"
 #include <iostream>
 #include <vector>
@@ -59,8 +60,9 @@ int main(){
 	CHECK for :
 	Unary minus: -digit ; -( = 0-( ; digit - (; ()-() (-)3
 	*/
+	try{
 	cout << ">>>Lexer Testing<<<<" << endl;
-	Lexer l("-2    +(4*6    )^2-(11*(4/-2   ))");
+	Lexer l("-   2    8 9 0 91    + - (4* -    6    )^2-(11*(4/-2   ))");
 	l.break_into_tokens();
 	cout << "String: " << l.get_s() <<endl;
 	l.printfunc();
@@ -69,12 +71,28 @@ int main(){
 	Parser p(tokenVect);
 	p.infixToPostfix();
 	p.printfunc();
+	
+	cout << "Testing for lexer object" << endl;
+	Parser p2(l.get_v());
+	p2.infixToPostfix();
+	p2.printfunc();
 
 	/*testing for atoi*/
 	const char* string = "-12345";
 	int digit = atoi(string);
 	cout<<"(atoi testing) Digit: " << digit <<endl;
 
+	cout << "Testing for lexer object" << endl;
+	Lexer l2("q234");
+	l2.break_into_tokens();
+	cout << "String: " << l2.get_s() <<endl;
+	l2.printfunc();
+
 	cin.get();
 	return 1;
+	}
+	catch(RuntimeException &e){
+		cerr << e<<endl;
+		cin.get();
+	}
 }
