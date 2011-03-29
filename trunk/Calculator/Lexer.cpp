@@ -33,10 +33,10 @@ string Lexer::get_s()const{
 		}
 		case '-':   //check for unary minus  
 			{
-				TokenPlusMinus* tokMinus = new TokenPlusMinus(c);
-				v.push_back(tokMinus);
-				string++;
-				break;
+			TokenPlusMinus* tokMinus = new TokenPlusMinus(c);
+			v.push_back(tokMinus);
+			string++;
+			break;
 			}
 		case '*':
 			{
@@ -86,14 +86,21 @@ string Lexer::get_s()const{
 			const int size = s.size()+1;
 			char* digit = new char[size];	//	max size is the size of the input str
 			char* digitIterator = digit;   //	used to iterate through the c_str
-			char char_unary = v.back()->getId();
-			if( char_unary == '-'){
-				digitIterator[0] = '-';
-				digitIterator++;
-				v.pop_back();
+			char char_unary;
+			int vSize;
+			if(v.empty()){
+				vSize = 0;
 			}
-			
-			while(isdigit(c) || c == ' '){
+			else{ 
+				char_unary = v.back()->getId();  // gets the last token that was parsed
+				vSize = v.size();
+				if(char_unary == '-' && (vSize == 1 || v[vSize - 2]->getId() == '+' || v[vSize - 2]->getId() == '-' ||  v[vSize - 2]->getId() == '*' ||  v[vSize - 2]->getId() == '/' || v[vSize - 2]->getId() == '^'|| v[vSize - 2]->getId() == '(')){    //doesn't work for all the cases
+					digitIterator[0] = '-'; 
+					digitIterator++;
+					v.pop_back();
+				}
+			}
+			while(isdigit(c) || c == ' '){   
 				while(c == ' '){ // TRY TO FIND A BETTER WAY
 					string++;
 					c = *string;
