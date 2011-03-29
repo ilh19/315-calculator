@@ -1,7 +1,9 @@
 #include "Token.h"
+#include "Parser.h"
+#include "Lexer.h"
 #include <iostream>
 #include <vector>
-#include "Parser.h"
+
 
 using namespace std;
 
@@ -41,7 +43,7 @@ int main(){
 	tokenVect.push_back(tokClose);
 	tokenVect.push_back(tokClose);
 	tokenVect.push_back(tokEnd);
-	Token* tok;
+	//Token* tok;
 
 	/*for(int i=0; i < tokenVect.size(); i++){
 		tok = tokenVect[i];
@@ -52,11 +54,26 @@ int main(){
 			cout << "Value: " << tok->getValue() << endl;
 		}
 	}*/
-	
+
+	/*
+	CHECK for :
+	Unary minus: -digit ; -( = 0-( ; digit - (; ()-() (-)3
+	*/
+	cout << ">>>Lexer Testing<<<<" << endl;
+	Lexer l("-2    +(4*6    )^2-(11*(4/-2   ))");
+	l.break_into_tokens();
+	cout << "String: " << l.get_s() <<endl;
+	l.printfunc();
+
+	cout << ">>>Parser Testing<<<<" << endl;
 	Parser p(tokenVect);
 	p.infixToPostfix();
-	
 	p.printfunc();
+
+	/*testing for atoi*/
+	const char* string = "-12345";
+	int digit = atoi(string);
+	cout<<"(atoi testing) Digit: " << digit <<endl;
 
 	cin.get();
 	return 1;

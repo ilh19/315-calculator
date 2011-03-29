@@ -17,6 +17,7 @@ public:
         list<Token*> getPostFix() const;
         list<Token*> getOpStack() const;
 		void printfunc();
+		//friend ostream& operator<<(ostream& os, const Parser& parser); 
         
 private: 
         list<Token*> opStack;

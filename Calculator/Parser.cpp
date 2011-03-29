@@ -31,7 +31,19 @@ void Parser::printfunc() {
 		}
 	}
 }
-
+/*
+ostream& operator<<(ostream& os,const Parser& parser) {
+  	list<Token*>::iterator p = parser.postFix.begin();
+	for (; p!=parser.postFix.end(); p++) {
+		if((*p)->getId() == 'd'){
+			os << "Value: " << (*p)->getValue() << endl;
+		}
+		else {
+			os<< (*p)->getId()<<endl;
+		}
+	}
+	return os;
+}*/
 void Parser::infixToPostfix(){
         for (int i = 0; i < input.size(); i++){
                 Token* inp = input[i];
@@ -81,7 +93,7 @@ void Parser::infixToPostfix(){
                         postFix.push_back(inp);
                 
                 }*/
-		}
+        }
 
 }
 
