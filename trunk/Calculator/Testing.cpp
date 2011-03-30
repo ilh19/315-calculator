@@ -4,6 +4,7 @@
 #include "Lexer.h"
 #include <iostream>
 #include <vector>
+#include "Evaluator.h"
 
 
 using namespace std;
@@ -82,12 +83,18 @@ int main(){
 	int digit = atoi(string);
 	cout<<"(atoi testing) Digit: " << digit <<endl;
 
+<<<<<<< .mine
+	Evaluator v(p);
+	v.evalExp();
+
+=======
 	cout << "Testing for lexer object" << endl;
 	Lexer l2("-2--34--3");
 	l2.break_into_tokens();
 	cout << "String: " << l2.get_s() <<endl;
 	l2.printfunc();
 
+>>>>>>> .r28
 	cin.get();
 	return 1;
 	}
