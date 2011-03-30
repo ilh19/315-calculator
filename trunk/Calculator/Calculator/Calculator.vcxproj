@@ -60,10 +60,12 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="..\Evaluator.h" />
     <ClInclude Include="..\Parser.h" />
     <ClInclude Include="..\Token.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="..\Evaluator.cpp" />
     <ClCompile Include="..\Parser.cpp" />
     <ClCompile Include="..\Testing.cpp" />
     <ClCompile Include="..\Token.cpp" />
