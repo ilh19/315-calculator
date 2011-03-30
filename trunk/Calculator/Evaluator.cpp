@@ -2,7 +2,7 @@
 #include <cmath>
 
 
-int Evaluator::evalExp() {
+int Evaluator::evalExp() { //not working
 	int v1, v2;
 	
 	list<Token*>::iterator it = p.getPostFix().begin();
