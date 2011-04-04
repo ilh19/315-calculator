@@ -7,12 +7,12 @@
 class Evaluator {
 	private:
 		Parser p;
-		int eval(int v1, int v2, char id);
-		list<int> evalStack;
+		int eval(int v1, int v2, char id);	// function that evaluates sub-expressions
+		list<int> evalStack;	// evaluator stack
 		
 	public:
 		Evaluator(Parser parser) : p(parser), evalStack() {}
-		int evalExp();
+		int evalExp();			// function that goes through the postfix list and calls eval function
 };
 
 #endif
