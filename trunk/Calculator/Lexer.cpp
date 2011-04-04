@@ -94,7 +94,10 @@ string Lexer::get_s()const{
 			else{ 
 				char_unary = v.back()->getId();  // gets the last token that was parsed
 				vSize = v.size();
-				if(char_unary == '-' && (vSize == 1 || v[vSize - 2]->getId() == '+' || v[vSize - 2]->getId() == '-' ||  v[vSize - 2]->getId() == '*' ||  v[vSize - 2]->getId() == '/' || v[vSize - 2]->getId() == '^'|| v[vSize - 2]->getId() == '(')){    //doesn't work for all the cases
+				if(char_unary == '-' && (vSize == 1 || v[vSize - 2]->getId() == '+' || v[vSize - 2]->getId() == '-' ||		//doesn't work for all the cases
+					   v[vSize - 2]->getId() == '*' ||  v[vSize - 2]->getId() == '/' || v[vSize - 2]->getId() == '^'|| 
+					   v[vSize - 2]->getId() == '(')){  
+
 					digitIterator[0] = '-'; 
 					digitIterator++;
 					v.pop_back();

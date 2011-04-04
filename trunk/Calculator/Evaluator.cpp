@@ -5,8 +5,8 @@
 int Evaluator::evalExp() { //not working
 	int v1, v2;
 	
-	list<Token*>::iterator it = p.getPostFix().begin();
-	for (; it!=p.getPostFix().end(); it++) {
+	list<Token*>::iterator it;
+	for (it = p.postFix.begin(); it!=p.postFix.end(); it++) {
 		char cur = (*it)->getId();
 		if(cur == 'd') {
 			evalStack.push_back((*it)->getValue());
