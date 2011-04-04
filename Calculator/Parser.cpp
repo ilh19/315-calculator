@@ -77,6 +77,7 @@ void Parser::infixToPostfix(){
 					continue;
                 }
 				else{  // operator
+
 					Token* temp = opStack.back(); 
 					while (temp->getStackPrior() >= inp->getInPrior()) { //pop from stack into queue those operators with stack priority > input priority
 						postFix.push_back(temp);
@@ -94,6 +95,13 @@ void Parser::infixToPostfix(){
                 
                 }*/
         }
+		Token* temp = opStack.back(); 
+		while (temp->getId() != '#')
+		{
+				postFix.push_back(temp);
+				opStack.pop_back();
+				temp = opStack.back();
+		}
 
 }
 

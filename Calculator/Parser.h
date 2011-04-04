@@ -14,6 +14,7 @@ public:
        // ~Parser();
         
 		void infixToPostfix();
+		list<Token*> postFix;
         list<Token*> getPostFix() const;
         list<Token*> getOpStack() const;
 		void printfunc();
@@ -21,7 +22,7 @@ public:
         
 private: 
         list<Token*> opStack;
-        list<Token*> postFix;
+        //list<Token*> postFix;
         vector<Token*> input;
 
         //friend class Evaluator;
