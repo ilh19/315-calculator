@@ -1,6 +1,7 @@
 #ifndef EVALUATOR_H
 #define EVALUATOR_H
 #include "Parser.h"
+#include "RuntimeException.h"
 #include <iostream>
 
 class Evaluator {
