@@ -19,6 +19,8 @@ string Lexer::get_s()const{
 }
 
  void Lexer::break_into_tokens()throw (EmptyStringException,NotValidExpressionException){
+	int count_right_parenthesis = 0;
+	int count_left_parenthesis = 0;
 	if(s.empty()) throw (EmptyStringException());
 	const char *string = s.c_str();
 	while(*string != '\0'){
@@ -61,6 +63,7 @@ string Lexer::get_s()const{
 			}
 		case '(':
 			{
+			count_left_parenthesis++;
 			TokenOpenParen* tokOpen = new TokenOpenParen();
 			v.push_back(tokOpen);
 			string++;
@@ -68,6 +71,7 @@ string Lexer::get_s()const{
 			}
 		case ')':
 			{
+			count_right_parenthesis++;
 			TokenCloseParen* tokClose = new TokenCloseParen();
 			v.push_back(tokClose);
 			string++;
@@ -124,6 +128,7 @@ string Lexer::get_s()const{
 		throw NotValidExpressionException();  // it does not satisfy any of the above cases
 		}
 	}
+	if (count_left_parenthesis != count_right_parenthesis) throw NotValidExpressionException();
 }
  //!!! change to operator overloading
  void Lexer::printfunc()const{

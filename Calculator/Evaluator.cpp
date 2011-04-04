@@ -38,6 +38,7 @@ int Evaluator::eval(int v1, int v2, char id) {
       break;
 	
 	case '/':
+	  if (v2 == 0) throw RuntimeException("Division by zero is invalid!");
 	  return (v1/v2); //check for div by zero later
 	  break;
 	
