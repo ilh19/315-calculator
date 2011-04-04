@@ -2,29 +2,24 @@
 #include <cmath>
 
 
-int Evaluator::evalExp() { //not working
+int Evaluator::evalExp() {
 	int v1, v2;
 	
-	list<Token*>::iterator it;
+	list<Token*>::iterator it;		// iterator to iterate through the list containing the postfix expression
 	for (it = p.postFix.begin(); it!=p.postFix.end(); it++) {
-		char cur = (*it)->getId();
-		if(cur == 'd') {
+		char cur = (*it)->getId();	// get id of current element in postfix list
+		if(cur == 'd') {			// current element is a digit, push into evaluator stack
 			evalStack.push_back((*it)->getValue());
 		}
-		else {
-			v2 = evalStack.back();
+		else {						// current element is an operator
+			v2 = evalStack.back();	// pop digit
 			evalStack.pop_back();
-			v1 = evalStack.back();
+			v1 = evalStack.back();	// pop digit
 			evalStack.pop_back();
-			evalStack.push_back(eval(v1,v2,cur));
+			evalStack.push_back(eval(v1,v2,cur));	// evaluate expression and push into evaluator stack
 		}
 	}
-	//try {
-		return evalStack.front();
-	//}
-	//catch (...) {
-	//	cerr<<"Wrong expression" << endl; 
-	//}
+	return evalStack.front();
 }
 
 int Evaluator::eval(int v1, int v2, char id) {
@@ -38,8 +33,8 @@ int Evaluator::eval(int v1, int v2, char id) {
       break;
 	
 	case '/':
-	  if (v2 == 0) throw RuntimeException("Division by zero is invalid!");
-	  return (v1/v2); //check for div by zero later
+	  if (v2 == 0) throw RuntimeException("Division by zero is invalid!");	// check for division by zero
+	  return (v1/v2); 
 	  break;
 	
 	case '*':

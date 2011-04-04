@@ -16,10 +16,10 @@ public:
 
 protected:
 	/*Priorities*/
-	int inPrior;
-	int stackPrior;
-	char id;
-	int value;
+	int inPrior;	// priority for queue
+	int stackPrior;	// priority for stack
+	char id;	
+	int value;		// used only for digit token
 };
 	
 class TokenOpenParen : public Token{
@@ -35,10 +35,6 @@ public:
 class TokenDigit: public Token{
 public:
   	TokenDigit(int i);
-	//int getValue() const;
-
-//private:
-//	int value;
 };
 
 class TokenPlusMinus : public Token{

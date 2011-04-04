@@ -23,7 +23,7 @@ private:
 	}; 
 
 public:
-   	Lexer(string str);
+   	Lexer(string str);	
 
   	vector<Token*> v;
   	vector<Token*> get_v()const ;
