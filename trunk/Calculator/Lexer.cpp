@@ -21,6 +21,7 @@ string Lexer::get_s()const{
  void Lexer::break_into_tokens(){
 	int count_right_parenthesis = 0;
 	int count_left_parenthesis = 0;
+	bool operator_prev = true;				// flag to determine if previous token is an operator. Starts being true to handle this case: ~<expression>
 	if(s.empty()) throw (RuntimeException("Empty String"));
 	const char *string = s.c_str();
 	while(*string != '\0'){
@@ -30,20 +31,41 @@ string Lexer::get_s()const{
 			{
 			TokenPlusMinus* tokPlus = new TokenPlusMinus(c);
 			v.push_back(tokPlus);
+			operator_prev = true;	
 			string++;
 			break;
 		}
 		case '-':   
 			{
-			TokenPlusMinus* tokMinus = new TokenPlusMinus(c);
-			v.push_back(tokMinus);
-			string++;
+			if(operator_prev){					// handles unary minus
+				string++;
+				c = *string;
+			    while (c==' '|| isdigit(c) || c == '(') {
+					if(c == ' '){    // Cases: ~ <digit>  or (- <expression> 
+						string++;
+						c = *string;
+					}
+					else{
+						TokenUnaryMinus* tokMinus = new TokenUnaryMinus();
+						v.push_back(tokMinus);
+						operator_prev = false;	
+						break;
+					}
+				}
+			}
+			else{
+				TokenPlusMinus* tokMinus = new TokenPlusMinus(c);
+				v.push_back(tokMinus);
+				operator_prev = true;	
+				string++;
+				}
 			break;
 			}
 		case '*':
 			{
 			TokenDivMult* tokMult = new TokenDivMult(c);
 			v.push_back(tokMult);
+			operator_prev = true;	
 			string++;
 			break;
 			}
@@ -51,6 +73,7 @@ string Lexer::get_s()const{
 			{
 			TokenDivMult* tokDiv = new TokenDivMult(c);
 			v.push_back(tokDiv);
+			operator_prev = true;	
 			string++;
 			break;
 			}
@@ -58,6 +81,7 @@ string Lexer::get_s()const{
 			{
 			TokenDivMult* tokMod = new TokenDivMult(c);
 			v.push_back(tokMod);
+			operator_prev = true;	
 			string++;
 			break;
 			}
@@ -65,6 +89,7 @@ string Lexer::get_s()const{
 			{
 			TokenExp* tokExp = new TokenExp();
 			v.push_back(tokExp);
+			operator_prev = true;	
 			string++;
 			break;
 			}
@@ -73,6 +98,7 @@ string Lexer::get_s()const{
 			count_left_parenthesis++;
 			TokenOpenParen* tokOpen = new TokenOpenParen();
 			v.push_back(tokOpen);
+			operator_prev = true;	
 			string++;
 			break;
 			}
@@ -82,6 +108,7 @@ string Lexer::get_s()const{
 			if (count_right_parenthesis > count_left_parenthesis) throw RuntimeException("Invalid Parenthesis");
 			TokenCloseParen* tokClose = new TokenCloseParen();
 			v.push_back(tokClose);
+			operator_prev = false;	
 			string++;
 			break;
 			}
@@ -100,21 +127,7 @@ string Lexer::get_s()const{
 					const int size = s.size()+1;
 					char* digit = new char[size];			//	max size is the size of the input str
 					char* digitIterator = digit;			//	used to iterate through the c_str
-					char char_unary;
-					int vSize;
-					if(!v.empty()){							// there are tokens in the vector of tokens
-						char_unary = v.back()->getId();		// gets the last token that was parsed
-						vSize = v.size();
-						
-						if(char_unary == '-' && (vSize == 1 || v[vSize - 2]->getId() == '+' || v[vSize - 2]->getId() == '-' ||		
-								v[vSize - 2]->getId() == '*' ||  v[vSize - 2]->getId() == '/' || v[vSize - 2]->getId() == '^'|| 
-								v[vSize - 2]->getId() == '(')){
-								
-								digitIterator[0] = '-';		//checks for unary minus before the digit
-								digitIterator++;
-								v.pop_back();
-						}
-					}
+
 					//gets more digits and skips spaces
 					while(isdigit(c) || c == ' '){  
 						while(c == ' '){ 
@@ -132,6 +145,7 @@ string Lexer::get_s()const{
 					int number = atoi(digit);			
 					TokenDigit* tokDig = new TokenDigit(number);
 					v.push_back(tokDig);
+					operator_prev = false;	
 					break;
 				}
 			else{  // not a digit or space or operator
