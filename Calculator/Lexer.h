@@ -1,6 +1,3 @@
-/*
-<LEXER.H>
-*/
 #ifndef LEXER_H
 #define LEXER_H
 
@@ -18,8 +15,8 @@ public:
   	vector<Token*> get_v()const ;
   	string get_s()const ;
    	void break_into_tokens();
-	void printfunc()const;
-  	
+	void printfunc()const; 	
+
 private:
   	string s;
 };

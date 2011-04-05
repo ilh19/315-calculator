@@ -1,7 +1,3 @@
-/*
-<PARSER.CPP>
-*/
-
 #include "Parser.h"
 #include "RuntimeException.h"
 #include <iostream>
@@ -10,8 +6,6 @@ Parser::Parser(vector<Token*> inputVect): input(inputVect) {
 		TokenEnd* end = new TokenEnd(); 
         opStack.push_back(end);
 }
-
-//Parser::~Parser(){}
 
 list<Token*> Parser::getPostFix() const{
         return postFix;
@@ -56,7 +50,6 @@ void Parser::infixToPostfix(){
 						continue;
                 }
                 if(id == ')'){
-					//if 
 					while (!opStack.empty() && ((opStack.back())->getId())!='(') {
 						postFix.push_back(opStack.back());
 						opStack.pop_back();
@@ -78,14 +71,7 @@ void Parser::infixToPostfix(){
 					}
 					opStack.push_back(inp); //push current operator into stack
 				}
-               /* if(inp->getInPrior() >= temp->getStackPrior()) {
-                        opStack.push_back(inp);
-                }
-                else{
-                        postFix.push_back(inp);
-                
-                }*/
-        }
+		}
 		Token* temp = opStack.back(); 
 		while (temp->getId() != '#')
 		{

@@ -1,7 +1,4 @@
-﻿/*
-<LEXER.CPP>
-*/
-#include "Lexer.h"
+﻿#include "Lexer.h"
 #include "Token.h"
 #include <iostream>
 
@@ -157,7 +154,7 @@ string Lexer::get_s()const{
 	}
 	if (count_left_parenthesis != count_right_parenthesis) throw RuntimeException("Unbalanced number of parentheses");
 }
- //!!! change to operator overloading
+
  void Lexer::printfunc()const{
 	for(int i = 0; i < v.size(); i++){
 		char c = v[i]->getId();

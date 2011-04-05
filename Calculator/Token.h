@@ -1,7 +1,4 @@
-﻿/*
-<TOKEN.H>
-*/
-#ifndef TOKEN_H
+﻿#ifndef TOKEN_H
 #define TOKEN_H
 
 class Token{
