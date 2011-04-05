@@ -9,6 +9,7 @@ class Evaluator {
 		Parser p;
 		int eval(int v1, int v2, char id);	// function that evaluates sub-expressions
 		list<int> evalStack;	// evaluator stack
+
 		
 	public:
 		Evaluator(Parser parser) : p(parser), evalStack() {}

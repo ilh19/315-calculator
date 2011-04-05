@@ -18,13 +18,13 @@ string Lexer::get_s()const{
   	return s;
 }
 
- void Lexer::break_into_tokens()throw (EmptyStringException,NotValidExpressionException){
+ void Lexer::break_into_tokens(){
 	int count_right_parenthesis = 0;
 	int count_left_parenthesis = 0;
-	if(s.empty()) throw (EmptyStringException());
+	if(s.empty()) throw (RuntimeException("Empty String"));
 	const char *string = s.c_str();
 	while(*string != '\0'){
-		char c = *string;     //THINK ABOUT OPTIMIZATION
+		char c = *string;     
 		switch (c){
 		case '+':
 			{
@@ -33,7 +33,7 @@ string Lexer::get_s()const{
 			string++;
 			break;
 		}
-		case '-':   //check for unary minus  
+		case '-':   
 			{
 			TokenPlusMinus* tokMinus = new TokenPlusMinus(c);
 			v.push_back(tokMinus);
@@ -82,53 +82,58 @@ string Lexer::get_s()const{
 			break;
 		case 'q':
 			if(s.size()==1){
+				cout << "Bye!" << endl;
 				exit(0);	
 			}
-			throw NotValidExpressionException(); 
+			throw RuntimeException("Not a valid expression"); 
 		default:
 			{
-			const int size = s.size()+1;
-			char* digit = new char[size];	//	max size is the size of the input str
-			char* digitIterator = digit;   //	used to iterate through the c_str
-			char char_unary;
-			int vSize;
-			if(v.empty()){
-				vSize = 0;
-			}
-			else{ 
-				char_unary = v.back()->getId();  // gets the last token that was parsed
-				vSize = v.size();
-				if(char_unary == '-' && (vSize == 1 || v[vSize - 2]->getId() == '+' || v[vSize - 2]->getId() == '-' ||		//doesn't work for all the cases
-					   v[vSize - 2]->getId() == '*' ||  v[vSize - 2]->getId() == '/' || v[vSize - 2]->getId() == '^'|| 
-					   v[vSize - 2]->getId() == '(')){  
-
-					digitIterator[0] = '-'; 
-					digitIterator++;
-					v.pop_back();
-				}
-			}
-			while(isdigit(c) || c == ' '){   
-				while(c == ' '){ // TRY TO FIND A BETTER WAY
-					string++;
-					c = *string;
-				}
 				if(isdigit(c)){
-					*digitIterator = c;
-					digitIterator++;
-					string++;
-					c = *string;
+					const int size = s.size()+1;
+					char* digit = new char[size];			//	max size is the size of the input str
+					char* digitIterator = digit;			//	used to iterate through the c_str
+					char char_unary;
+					int vSize;
+					if(!v.empty()){							// there are tokens in the vector of tokens
+						char_unary = v.back()->getId();		// gets the last token that was parsed
+						vSize = v.size();
+						
+						if(char_unary == '-' && (vSize == 1 || v[vSize - 2]->getId() == '+' || v[vSize - 2]->getId() == '-' ||		
+								v[vSize - 2]->getId() == '*' ||  v[vSize - 2]->getId() == '/' || v[vSize - 2]->getId() == '^'|| 
+								v[vSize - 2]->getId() == '(')){
+								
+								digitIterator[0] = '-';		//checks for unary minus before the digit
+								digitIterator++;
+								v.pop_back();
+						}
+					}
+					//gets more digits and skips spaces
+					while(isdigit(c) || c == ' '){  
+						while(c == ' '){ 
+							string++;
+							c = *string;
+						}
+						if(isdigit(c)){
+							*digitIterator = c;
+							digitIterator++;
+							string++;
+							c = *string;
+						}
+					}
+					// converts c_str digit to int	
+					int number = atoi(digit);			
+					TokenDigit* tokDig = new TokenDigit(number);
+					v.push_back(tokDig);
+					break;
 				}
+			else{  // not a digit or space or operator
+				cout << "ERROR" << endl;
+				throw RuntimeException("Not valid expression");  // it does not satisfy any of the above cases
 			}
-			// converts c_str digit to int
-			int number = atoi(digit);			
-			TokenDigit* tokDig = new TokenDigit(number);
-			v.push_back(tokDig);
-			break;
-		}
-		throw NotValidExpressionException();  // it does not satisfy any of the above cases
-		}
-	}
-	if (count_left_parenthesis != count_right_parenthesis) throw NotValidExpressionException();
+			}
+	if (count_left_parenthesis != count_right_parenthesis) throw RuntimeException("Unbalanced number of parentheses");
+}
+}
 }
  //!!! change to operator overloading
  void Lexer::printfunc()const{
@@ -145,8 +150,3 @@ string Lexer::get_s()const{
  }
 
 
-  	//destructor
-//Lexer::
-//~Lexer(){
-//  	delete v;
-//}

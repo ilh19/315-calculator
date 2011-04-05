@@ -6,6 +6,7 @@
 #include "Token.h" 
 #include <list>
 #include <vector>
+#include <queue> 
 
 using namespace std;
 class Parser{

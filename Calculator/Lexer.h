@@ -11,17 +11,6 @@
 
 using namespace std;
 class Lexer{
-private:
-	// user-defined exception  //!!!!!!!!!!!!! SEPARATE FILE??
-	class EmptyStringException : public RuntimeException {
-	public:
-		EmptyStringException() : RuntimeException("Empty String") {}
-	}; 
-	class NotValidExpressionException : public RuntimeException {
-	public:
-		NotValidExpressionException() : RuntimeException("Not a valid expression") {}
-	}; 
-
 public:
    	Lexer(string str);	
 
@@ -32,7 +21,6 @@ public:
 	void printfunc()const;
   	
 private:
-  	
   	string s;
 };
 #endif

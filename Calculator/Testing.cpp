@@ -10,26 +10,23 @@
 using namespace std;
 
 int main(){
-try{	
-	char * exp = new char[200];
-	cout << "--Enter an expression to be evaluated: ";
-	cin.getline(exp,200);
-	while (exp != "q"){
-		Lexer lex(exp);
-		lex.break_into_tokens();
-		lex.printfunc();
-		Parser par(lex.v);
-		par.infixToPostfix();
-		Evaluator v(par);
-		cout << "Value: " << v.evalExp() << endl;
-		cout << "--Enter an expression to be evaluated: ";
-		cin.getline(exp,200);
+	for( ; ; ){
+		try{	
+			char * exp = new char[200];
+			cout << "--Enter an expression to be evaluated: ";
+			cin.getline(exp,200);
+
+			Lexer lex(exp);   // FIX: when letters and symbols are entered!; fix the q to show "Bye!", makefile
+			lex.break_into_tokens();
+			lex.printfunc();
+			Parser par(lex.v);
+			par.infixToPostfix();
+			Evaluator v(par);
+			cout << "Value: " << v.evalExp() << endl;
+		}
+		catch(RuntimeException &e){
+			cout<<"printing some exception" << endl;
+			cerr << e << endl;
+		}
 	}
-	cin.get();
-	return 1;
-}
-catch(RuntimeException &e){
-	cerr << e<<endl;
-	cin.get();
-}
 }

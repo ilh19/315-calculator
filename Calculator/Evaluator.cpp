@@ -4,23 +4,31 @@
 
 int Evaluator::evalExp() {
 	int v1, v2;
-	
-	list<Token*>::iterator it;		// iterator to iterate through the list containing the postfix expression
-	for (it = p.postFix.begin(); it!=p.postFix.end(); it++) {
-		char cur = (*it)->getId();	// get id of current element in postfix list
-		if(cur == 'd') {			// current element is a digit, push into evaluator stack
-			evalStack.push_back((*it)->getValue());
+	Token* cur; 
+
+	while (!p.postFix.empty()) {
+		cur = p.postFix.front();
+		p.postFix.pop_front();
+		try {
+			if (cur->getId()!='d') {
+				if (evalStack.size()<2) throw RuntimeException("Invalid expression");  //checks for number of operands in stack (must be at least 2) 
+					v2 = evalStack.back();
+					evalStack.pop_back();
+					v1 = evalStack.back();
+					evalStack.pop_back();
+					evalStack.push_back(eval(v1,v2,cur->getId()));
+			}
+			else {
+				evalStack.push_back(cur->getValue());
+			}
 		}
-		else {						// current element is an operator
-			v2 = evalStack.back();	// pop digit
-			evalStack.pop_back();
-			v1 = evalStack.back();	// pop digit
-			evalStack.pop_back();
-			evalStack.push_back(eval(v1,v2,cur));	// evaluate expression and push into evaluator stack
+		catch (...) {
+			throw RuntimeException("Invalid expression");
 		}
 	}
 	return evalStack.front();
 }
+
 
 int Evaluator::eval(int v1, int v2, char id) {
   switch (id) {
