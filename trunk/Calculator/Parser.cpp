@@ -3,6 +3,7 @@
 */
 
 #include "Parser.h"
+#include "RuntimeException.h"
 #include <iostream>
 
 Parser::Parser(vector<Token*> inputVect): input(inputVect) {
@@ -31,20 +32,9 @@ void Parser::printfunc() {
 		}
 	}
 }
-/*
-ostream& operator<<(ostream& os,const Parser& parser) {
-  	list<Token*>::iterator p = parser.postFix.begin();
-	for (; p!=parser.postFix.end(); p++) {
-		if((*p)->getId() == 'd'){
-			os << "Value: " << (*p)->getValue() << endl;
-		}
-		else {
-			os<< (*p)->getId()<<endl;
-		}
-	}
-	return os;
-}*/
+
 void Parser::infixToPostfix(){
+		if (input.size() == 0) throw RuntimeException("No input");
         for (int i = 0; i < input.size(); i++){
                 Token* inp = input[i];
 				char id = inp->getId();
