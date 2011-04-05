@@ -54,6 +54,13 @@ string Lexer::get_s()const{
 			string++;
 			break;
 			}
+		case '%':
+			{
+			TokenDivMult* tokMod = new TokenDivMult(c);
+			v.push_back(tokMod);
+			string++;
+			break;
+			}
 		case '^':
 			{
 			TokenExp* tokExp = new TokenExp();
@@ -72,6 +79,7 @@ string Lexer::get_s()const{
 		case ')':
 			{
 			count_right_parenthesis++;
+			if (count_right_parenthesis > count_left_parenthesis) throw RuntimeException("Invalid Parenthesis");
 			TokenCloseParen* tokClose = new TokenCloseParen();
 			v.push_back(tokClose);
 			string++;
@@ -129,11 +137,11 @@ string Lexer::get_s()const{
 			else{  // not a digit or space or operator
 				cout << "ERROR" << endl;
 				throw RuntimeException("Not valid expression");  // it does not satisfy any of the above cases
+				}
 			}
-			}
+		}	
+	}
 	if (count_left_parenthesis != count_right_parenthesis) throw RuntimeException("Unbalanced number of parentheses");
-}
-}
 }
  //!!! change to operator overloading
  void Lexer::printfunc()const{
