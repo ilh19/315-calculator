@@ -56,6 +56,7 @@ void Parser::infixToPostfix(){
 						continue;
                 }
                 if(id == ')'){
+					//if 
 					while (!opStack.empty() && ((opStack.back())->getId())!='(') {
 						postFix.push_back(opStack.back());
 						opStack.pop_back();

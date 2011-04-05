@@ -3,6 +3,8 @@
 
 
 int Evaluator::evalExp() {
+	if (p.postFix.empty()) throw RuntimeException("No operands");
+
 	int v1, v2;
 	Token* cur; 
 
@@ -26,6 +28,8 @@ int Evaluator::evalExp() {
 			throw RuntimeException("Invalid expression");
 		}
 	}
+	if (evalStack.size() > 1 ) throw RuntimeException("Invalid expression");
+
 	return evalStack.front();
 }
 
@@ -48,7 +52,12 @@ int Evaluator::eval(int v1, int v2, char id) {
 	case '*':
 	  return (v1*v2);
 	  break;
-	
+
+	case '%':
+	  if (v2 == 0) throw RuntimeException("Division by zero is invalid!");	// check for division by zero
+	  return (v1%v2);
+	  break;	
+
 	case '^':
 	  return static_cast<int>(pow(static_cast<double>(v1), v2));
 	  break;

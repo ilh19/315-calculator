@@ -54,6 +54,7 @@ TokenDivMult::TokenDivMult(char c) : Token(c) {
 	stackPrior = 4;
 }
 
+
 TokenExp::TokenExp() : Token('^') {
 	inPrior = 6;
 	stackPrior = 5;
