@@ -47,6 +47,11 @@ public:
   	TokenDivMult(char c);
 };
 
+class TokenUnaryMinus : public Token{
+public:
+  	TokenUnaryMinus();
+};
+
 class TokenExp: public Token{
 public:
   	TokenExp();

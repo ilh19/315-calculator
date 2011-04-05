@@ -13,12 +13,20 @@ int Evaluator::evalExp() {
 		p.postFix.pop_front();
 		try {
 			if (cur->getId()!='d') {
-				if (evalStack.size()<2) throw RuntimeException("Invalid expression");  //checks for number of operands in stack (must be at least 2) 
+				if (cur->getId() == '~') {
+					if (evalStack.size()<1) throw RuntimeException("Invalid expression");  //checks for number of operands in stack (must be at least 1) 
+					v1 = evalStack.back();
+					evalStack.pop_back();
+					evalStack.push_back(eval(v1,'~'));
+				}
+				else {
+					if (evalStack.size()<2) throw RuntimeException("Invalid expression");  //checks for number of operands in stack (must be at least 2) 
 					v2 = evalStack.back();
 					evalStack.pop_back();
 					v1 = evalStack.back();
 					evalStack.pop_back();
 					evalStack.push_back(eval(v1,v2,cur->getId()));
+				}
 			}
 			else {
 				evalStack.push_back(cur->getValue());
@@ -33,6 +41,10 @@ int Evaluator::evalExp() {
 	return evalStack.front();
 }
 
+
+int Evaluator::eval(int v1, char id) { 
+	return -v1;
+}
 
 int Evaluator::eval(int v1, int v2, char id) {
   switch (id) {

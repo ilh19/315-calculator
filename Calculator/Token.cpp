@@ -55,6 +55,11 @@ TokenDivMult::TokenDivMult(char c) : Token(c) {
 }
 
 
+TokenUnaryMinus::TokenUnaryMinus() : Token('~') {
+	inPrior = 8;
+	stackPrior = 7;
+}
+
 TokenExp::TokenExp() : Token('^') {
 	inPrior = 6;
 	stackPrior = 5;
